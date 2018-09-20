@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="Itec-Schema">
+	<Cube name="Produto Transferido">
+		<Table name="V_EST_PROD_TRANSF_IT_RESSUP_CUBO" schema="dbo" />
+
+		<!-- Filial Destino -->
+		<Dimension name="Filial Destino">
+			<Hierarchy hasAll="true" allMemberName="Todas as Filiais">
+				<Level name="Filial Destino" column="CD_FIL_DEST"
+					uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<!-- Filial Origem -->
+		<Dimension name="Filial Origem">
+			<Hierarchy hasAll="true" allMemberName="Todas as Filiais">
+				<Level name="Filial Origem" column="CD_FILIAL"
+					uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Data Transferencia">
+			<Hierarchy hasAll="true" allMemberName="Todas as Datas">
+				<Level type="String" name="Data Transferencia"
+					column="DT_TRANSF" uniqueMembers="true">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Status">
+			<Hierarchy hasAll="true" allMemberName="Todos os Status">
+				<Level type="String" name="Status" column="STATUS"
+					uniqueMembers="true">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Qt Est Depo Res">
+			<Hierarchy hasAll="true" allMemberName="Todos os Status">
+				<Level type="String" name="Qt Est Depo Res"
+					column="QT_EST_DEPO_RES" uniqueMembers="true">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Linha">
+			<Hierarchy hasAll="true">
+				<Level name="Linha" column="DS_ARV_MERC_LINHA"
+					uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Produto">
+			<Hierarchy hasAll="true">
+				<Level name="Produto" column="DS_PROD" uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+
+		<!-- Measures tem que vir primeiro. -->
+		<!-- https://stackoverflow.com/questions/26191174/is-there-a-limit-on-the-number-of-measures-in-mondrian-or-more-specifically-saik/ -->
+
+		<Measure name="Qtd Produto" column="QTDE_PROD"
+			aggregator="sum" />
+		<Measure name="Qtd Solicitada" column="QT_SOL"
+			aggregator="sum" />
+		<Measure name="Qtd Atendida" column="QT_AT" aggregator="sum" />
+		<Measure name="Valor Solicitado" column="VLR_SOL"
+			aggregator="sum" />
+		<Measure name="Valor Atendido" column="VLR_AT"
+			aggregator="sum" />
+		<Measure name="Qtd Caixa Fechada" column="QT_CAIXA_FECHADA"
+			aggregator="sum" />
+		<Measure name="Pontos" column="PTOS" aggregator="sum" />
+		<Measure name="Qtd Necessidade" column="QT_NECESSIDADE"
+			aggregator="sum" />
+		<Measure name="Qtd Atend Necess" column="QT_ATEND_NECES"
+			aggregator="sum" />
+
+		<CalculatedMember name="Dif Qtde Ressup Atend"
+			dimension="Measures"
+			formula="[Measures].[Qtd Solicitada] - [Measures].[Qtd Atendida]" />
+		<CalculatedMember name="% Atendido"
+			dimension="Measures"
+			formula="[Measures].[Qtd Atendida] / [Measures].[Qtd Solicitada] * 100" />
+
+
+		<CalculatedMember name="Dif Valor Ressup Atend"
+			dimension="Measures"
+			formula="[Measures].[Valor Solicitado] - [Measures].[Valor Atendido]">
+		</CalculatedMember>
+		<CalculatedMember name="% Valor Atendido"
+			dimension="Measures"
+			formula="[Measures].[Valor Atendido] / [Measures].[Valor Solicitado] * 100" />
+
+		<CalculatedMember name="% Qtd Pontos"
+			dimension="Measures"
+			formula="[Measures].[Pontos] / [Measures].[Qtd Produto] * 100" />
+		<CalculatedMember name="% Atend Necessidade"
+			dimension="Measures"
+			formula="[Measures].[Qtd Atend Necess] / [Measures].[Qtd Solicitada] * 100" />
+
+	</Cube>
+	<Cube name="Vendas Produtos">
+		<View alias='Visao'> <SQL dialect="mssql"> <![CDATA[SELECT * FROM V_RELATORIO_MOVIMENTO_VENDAS_PRODUTOS 
+			WHERE DtMovimento BETWEEN %DATAINICIAL% AND %DATAFINAL%]]> </SQL> </View> 
+		<!--<Table name="V_RELATORIO_MOVIMENTO_VENDAS_PRODUTOS_LITE"
+			schema="dbo" /> -->
+
+		<!-- Filial -->
+		<Dimension name="Filial">
+			<Hierarchy hasAll="true" allMemberName="Todas as Filiais">
+				<Level name="Filial" column="Filial" uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Data Movimentacao">
+			<Hierarchy hasAll="true">
+				<Level type="String" name="Data Movimentacao"
+					 uniqueMembers="true">
+					<KeyExpression>
+						<SQL dialect="mssql">
+							CONVERT(VARCHAR,DtMovimento,120)
+						</SQL>
+					</KeyExpression>
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Cidade">
+			<Hierarchy hasAll="true" allMemberName="Todas as Cidades">
+				<Level type="String" name="Cidade" column="Cidade"
+					uniqueMembers="true">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Regiao">
+			<Hierarchy hasAll="true" allMemberName="Todas as Regiões">
+				<Level type="String" name="Regiao" column="RegiaoFilial"
+					uniqueMembers="true">
+				</Level>
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Linha">
+			<Hierarchy hasAll="true">
+				<Level name="Linha" column="Linha" uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Produto">
+			<Hierarchy hasAll="true">
+				<Level name="Produto" column="Descricao" uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+		<Dimension name="Area Atendimento">
+			<Hierarchy hasAll="true">
+				<Level name="Area Atendimento" column="AreaAtendimento"
+					uniqueMembers="true" />
+			</Hierarchy>
+		</Dimension>
+
+
+
+		<!-- Measures tem que vir primeiro. -->
+		<!-- https://stackoverflow.com/questions/26191174/is-there-a-limit-on-the-number-of-measures-in-mondrian-or-more-specifically-saik/ -->
+
+		<Measure name="Valor PMC" column="VlrPMC" aggregator="sum" />
+		<Measure name="Valor Oferta" column="VlrOferta"
+			aggregator="sum" />
+		<Measure name="Valor Venda Bruta" column="VlrVendaBruta"
+			aggregator="sum" />
+		<Measure name="Valor Desc Items" column="VlrDescItens"
+			aggregator="sum" />
+		<Measure name="Valor Desc Verba" column="VlrDescVerba"
+			aggregator="sum" />
+		<Measure name="Valor Desc Rateio" column="VlrDescRateio"
+			aggregator="sum" />
+
+		<Measure name="Valor Vd Liquida" column="VlrVdLiquida"
+			aggregator="sum" />
+		<Measure name="Valor Custo Medio" column="VlrCustoMedio"
+			aggregator="sum" />
+		<Measure name="Valor Custo Ultimo" column="VlrCustoUltimo"
+			aggregator="sum" />
+		<Measure name="Valor Custo Ger" column="VlrCustoGer"
+			aggregator="sum" />
+		<Measure name="Valor Icms" column="VlrIcms" aggregator="sum" />
+		<Measure name="Valor Pis Cofins" column="VlrPisCofins"
+			aggregator="sum" />
+
+		<Measure name="Quantidade Itens" column="QtdeItens"
+			aggregator="sum" />
+		<Measure name="Valor Dinheiro" column="VlrDinheiro"
+			aggregator="sum" />
+		<Measure name="Valor Cheques" column="VlrCheques"
+			aggregator="sum" />
+		<Measure name="Valor Cheques A Vista" column="VlrChequesVista"
+			aggregator="sum" />
+		<Measure name="Valor Cheques A Prazo" column="VlrChequesPrazo"
+			aggregator="sum" />
+		<Measure name="Valor Cartao" column="VlrCartao"
+			aggregator="sum" />
+		<Measure name="Valor Tickets" column="VlrTickets"
+			aggregator="sum" />
+		<Measure name="Valor Duplicata" column="VlrDuplicata"
+			aggregator="sum" />
+		<Measure name="Valor Convenio" column="VlrConvenio"
+			aggregator="sum" />
+		<Measure name="Valor Convenio Pbm" column="VlrConvenioPbm"
+			aggregator="sum" />
+
+		<Measure name="Valor Cheque Troco" column="VlrChequeTroco"
+			aggregator="sum" />
+		<Measure name="Valor Ncc" column="VlrNcc" aggregator="sum" />
+		<Measure name="Quantidade Vd" column="QtdeVd" aggregator="sum" />
+		<Measure name="Valor Comissao" column="VlrComissao"
+			aggregator="sum" />
+		<Measure name="Valor Comissao Fabrica"
+			column="VlrComissaoFabric" aggregator="sum" />
+
+
+	</Cube>
+</Schema>
