@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <Schema name="Itec-Schema">
 	<Cube name="Produto Transferido">
 		<Table name="V_EST_PROD_TRANSF_IT_RESSUP_CUBO" schema="dbo" />

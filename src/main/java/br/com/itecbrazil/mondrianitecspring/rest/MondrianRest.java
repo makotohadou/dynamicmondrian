@@ -52,11 +52,12 @@ public class MondrianRest {
 	@ResponseBody
 	public void ApplyFilter(@RequestBody HashMap<String, Object> filters) {
 		
-		String dataInicial = (String) filters.get("dataInicial");
-		String dataFinal   = (String) filters.get("dataFinal");
+		//String dataInicial = (String) filters.get("dataInicial");
+		//String dataFinal   = (String) filters.get("dataFinal");
+		//queryContext.setDataFinal(dataFinal);
+		//queryContext.setDataInicial(dataInicial);
 		
-		queryContext.setDataFinal(dataFinal);
-		queryContext.setDataInicial(dataInicial);
+		queryContext.setUserFilter(filters);
 		
 		
 	}

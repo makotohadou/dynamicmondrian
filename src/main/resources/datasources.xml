@@ -50,7 +50,7 @@
              Catalogs can override the connect string with their own
              <DataSourceInfo> element.
           -->
-        <DataSourceInfo>Provider=mondrian;Jdbc=jdbc:sqlserver://morifarma.bd.itecdomain.com.br:49926;DatabaseName=MorifarmaProducao;JdbcDrivers=com.microsoft.sqlserver.jdbc.SQLServerDriver;JdbcUser=usr_itec.suporte;JdbcPassword=ey_JJ23tK@#;PoolNeeded=false;Catalog=file:Itec-Schema.xml;DynamicSchemaProcessor=br.com.itecbrazil.mondrianitecspring.utils.DynamicSchemaProcessor</DataSourceInfo>
+        <DataSourceInfo>Provider=mondrian;Jdbc=jdbc:sqlserver://morifarma.bd.itecdomain.com.br:49926;DatabaseName=MorifarmaProducao;JdbcDrivers=com.microsoft.sqlserver.jdbc.SQLServerDriver;JdbcUser=usr_itec.suporte;JdbcPassword=ey_JJ23tK@#;PoolNeeded=false;Catalog=file:Vendas Produtos.xml;DynamicSchemaProcessor=br.com.itecbrazil.mondrianitecspring.utils.DynamicSchemaProcessor</DataSourceInfo>
 
         <!--
              Provider name must be 'Mondrian'.
@@ -77,9 +77,9 @@
                 schema.xml file, and must be unique across all data
                 sources defined in this datasources.xml file.
             -->
-            <Catalog name="Itec-Schema">
-                <DataSourceInfo>Provider=mondrian;Jdbc=jdbc:sqlserver://morifarma.bd.itecdomain.com.br:49926;DatabaseName=MorifarmaProducao;JdbcDrivers=com.microsoft.sqlserver.jdbc.SQLServerDriver;JdbcUser=usr_itec.suporte;JdbcPassword=ey_JJ23tK@#;PoolNeeded=false;Catalog=file:Itec-Schema.xml;DynamicSchemaProcessor=br.com.itecbrazil.mondrianitecspring.utils.DynamicSchemaProcessor</DataSourceInfo>
-                <Definition>/WEB-INF/Testeeeeeeeeeeeeeee.xml</Definition>
+            <Catalog name="Vendas Produtos">
+                <DataSourceInfo>Provider=mondrian;Jdbc=jdbc:sqlserver://morifarma.bd.itecdomain.com.br:49926;DatabaseName=MorifarmaProducao;JdbcDrivers=com.microsoft.sqlserver.jdbc.SQLServerDriver;JdbcUser=usr_itec.suporte;JdbcPassword=ey_JJ23tK@#;PoolNeeded=false;Catalog=file:Vendas Produtos.xml;DynamicSchemaProcessor=br.com.itecbrazil.mondrianitecspring.utils.DynamicSchemaProcessor</DataSourceInfo>
+                <Definition>AAA</Definition>
             </Catalog>
         </Catalogs>
 
