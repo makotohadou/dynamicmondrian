@@ -2,7 +2,7 @@
 
 A Mondrian implementation with a REST webservice that allows for dynamic Schemas based on queries.
 
-Problem: You do not want to read your whole BI database everytime you need to update database image. 
+Problem: You do not want to read your whole BI database everytime you need to update the database image for a query. 
 This is specially onerous for cases where mondrian needs to display updated information on demand.
 
 Solution: Alter the Schema dynamically everytime a new query is made. This way, if an user is interested on data for the last day, 
